@@ -5,7 +5,7 @@ import {colors, fonts} from '../theme';
 const OpeningScreen = ({navigation}: any) => {
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/logo.png')} style={styles.logo} resizeMode="contain" />
+      <Image source={require('../assets/images/logoo.png')} style={styles.logo} resizeMode="contain" />
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Onboarding')}>
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>
@@ -21,8 +21,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 250,
-    height: 150,
+    width: 260,
+    height: 260,
+  },
+  appName: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    letterSpacing: 1,
+    marginTop: 8,
+  },
+  namePrimary: {
+    color: colors.primary,
+  },
+  nameLight: {
+    color: colors.primaryLight,
   },
   button: {
     position: 'absolute',

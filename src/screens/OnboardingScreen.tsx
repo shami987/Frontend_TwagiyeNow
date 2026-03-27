@@ -12,7 +12,7 @@ const OnboardingScreen = ({navigation}: any) => {
       <Image source={require('../assets/images/onboarding.png')} style={styles.illustration} resizeMode="contain" />
       <Text style={styles.title}>Welcome!</Text>
       <Text style={styles.subtitle}>
-        Sajha Bus is a online booking service for bus transportation. Login or Sign Up now to use this service.
+        TwagiyeNow app is a online booking service for bus transportation. Login or Sign Up now to use this service.
       </Text>
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 24,
-    paddingTop: 40,
   },
   logoText: {
     flexDirection: 'row',
