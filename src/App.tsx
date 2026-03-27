@@ -1,12 +1,9 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import '../global.css';
+import LiveBusTrackerScreen from './screens/LiveBusTrackerScreen';
 
 const App = () => {
-  return (
-    <SafeAreaView>
-      <Text>Hello, Twagiye!</Text>
-    </SafeAreaView>
-  );
+  return <LiveBusTrackerScreen />;
 };
 
 export default App;

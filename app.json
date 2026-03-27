@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "temp_app",
+    "slug": "temp_app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+    }
+  }
+}
