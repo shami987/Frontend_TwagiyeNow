@@ -1,0 +1,167 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1rem 0}
+.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.5rem}
+.s-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;border:0.5px solid var(--color-border-tertiary);text-align:center}
+.s-num{font-size:22px;font-weight:500;color:var(--color-text-primary)}
+.s-label{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.section{margin-bottom:1.25rem}
+.sec-title{font-size:12px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 14px}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px}
+.pkg{font-size:13px;font-weight:500;color:var(--color-text-primary);font-family:var(--font-mono)}
+.pill{font-size:10px;padding:2px 8px;border-radius:12px;font-weight:500;white-space:nowrap;flex-shrink:0}
+.pill-blue{background:#E6F1FB;color:#0C447C}
+.pill-teal{background:#E1F5EE;color:#085041}
+.pill-coral{background:#FAECE7;color:#712B13}
+.pill-amber{background:#FAEEDA;color:#633806}
+.pill-purple{background:#EEEDFE;color:#3C3489}
+.pill-green{background:#EAF3DE;color:#27500A}
+.pill-gray{background:#F1EFE8;color:#444441}
+.desc{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.why{font-size:11px;color:var(--color-text-tertiary);margin-top:4px;line-height:1.4}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:1.25rem 0}
+.note-box{background:var(--color-background-secondary);border-left:2px solid #378ADD;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;padding:10px 14px;margin-bottom:1.25rem;font-size:12px;color:var(--color-text-secondary);line-height:1.6}
+</style>
+<div class="wrap">
+
+<div class="summary">
+  <div class="s-card"><div class="s-num">14</div><div class="s-label">core libraries</div></div>
+  <div class="s-card"><div class="s-num">7</div><div class="s-label">categories</div></div>
+  <div class="s-card"><div class="s-num">3</div><div class="s-label">must-learn first</div></div>
+  <div class="s-card"><div class="s-num">0</div><div class="s-label">paid licenses</div></div>
+</div>
+
+<div class="note-box">Start with React Native CLI (not Expo) for full control over native modules — especially needed for maps and real-time GPS in Twagiye.</div>
+
+<div class="section">
+  <div class="sec-title">Core framework</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-top"><span class="pkg">react-native</span><span class="pill pill-blue">Must learn first</span></div>
+      <div class="desc">The base framework. Components, StyleSheet, hooks.</div>
+      <div class="why">v0.73+ — use the new architecture (JSI enabled)</div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="pkg">typescript</span><span class="pill pill-blue">Must learn first</span></div>
+      <div class="desc">Type safety across all 4 devs. Prevents prop errors.</div>
+      <div class="why">Agree on tsconfig.json together in Week 1</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-title">Navigation</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-top"><span class="pkg">@react-navigation/native</span><span class="pill pill-blue">Must learn first</span></div>
+      <div class="desc">Core navigation library. Stack, Tab, Drawer navigators.</div>
+      <div class="why">v6 — Dev 4 owns the navigator shell</div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="pkg">react-native-screens</span><span class="pill pill-gray">Required peer</span></div>
+      <div class="desc">Native screen containers. Required by React Navigation.</div>
+      <div class="why">Must be installed alongside react-navigation</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-title">State management</div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-top"><span class="pkg">@reduxjs/toolkit</span><span class="pill pill-purple">Global state</span></div>
+      <div class="desc">Auth token, active booking, user profile.</div>
+      <div class="why">Each dev writes their own slice</div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="pkg">react-redux</span><span class="pill pill-gray">Required peer</span></div>
+      <div class="desc">Connects Redux store to React components.</div>
+      <div class="why">Use useSelector / useDispatch hooks</div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="pkg">@tanstack/react-query</span><span class="pill pill-purple">Server cache</span></div>
+      <div class="desc">Fetching, caching and syncing bus schedules and seat data.</div>
+      <div class="why">Replaces manual loading/error state boilerplate</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-title">UI & styling</div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-top"><span class="pkg">react-native-paper</span><span class="pill pill-teal">UI library</span></div>
+      <div class="desc">Material Design components. Buttons, cards, modals, inputs.</div>
+      <div class="why">Speeds up Dev 1 and Dev 4 screens significantly</div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="pkg">react-native-vector-icons</span><span class="pill pill-teal">Icons</span></div>
+      <div class="desc">1000+ icons. Use MaterialCommunityIcons for transport icons.</div>
+      <div class="why">Bus, seat, ticket, location icons all available</div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="pkg">react-native-reanimated</span><span class="pill pill-teal">Animations</span></div>
+      <div class="desc">Smooth 60fps animations. Seat selection, loading states.</div>
+      <div class="why">v3 — works with new architecture</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-title">Maps & real-time (Dev 3 owns these)</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-top"><span class="pkg">react-native-maps</span><span class="pill pill-coral">Maps</span></div>
+      <div class="desc">Google Maps on Android, Apple Maps on iOS. Bus pins, park map.</div>
+      <div class="why">Wrap in a custom MapView component (shared)</div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="pkg">@supabase/supabase-js</span><span class="pill pill-coral">Realtime</span></div>
+      <div class="desc">WebSocket subscriptions for live bus location updates.</div>
+      <div class="why">Or use socket.io-client if backend uses Node/Socket.IO</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-title">Notifications & storage</div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-top"><span class="pkg">@notifee/react-native</span><span class="pill pill-amber">Push</span></div>
+      <div class="desc">Local + push notifications. Delay alerts, cancellations.</div>
+      <div class="why">Dev 4 integrates with Firebase FCM</div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="pkg">@react-native-async-storage</span><span class="pill pill-amber">Storage</span></div>
+      <div class="desc">Persist auth token, saved routes, language preference.</div>
+      <div class="why">Key-value store, works offline</div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="pkg">react-native-qrcode-svg</span><span class="pill pill-amber">QR code</span></div>
+      <div class="desc">Generates QR ticket from booking ID. SVG-based, scalable.</div>
+      <div class="why">Dev 2 uses in TicketCard component</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-title">Forms & validation (Dev 1 + Dev 2)</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-top"><span class="pkg">react-hook-form</span><span class="pill pill-green">Forms</span></div>
+      <div class="desc">Login, register, payment forms. Minimal re-renders.</div>
+      <div class="why">Pair with Controller for RN inputs</div>
+    </div>
+    <div class="card">
+      <div class="card-top"><span class="pkg">zod</span><span class="pill pill-green">Validation</span></div>
+      <div class="desc">Schema validation for all form inputs. Phone, email, ID.</div>
+      <div class="why">Works perfectly with react-hook-form resolver</div>
+    </div>
+  </div>
+</div>
+
+</div>
