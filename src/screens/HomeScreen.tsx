@@ -56,7 +56,7 @@ const HomeScreen = ({ navigation }: any) => {
         {/* Greeting */}
         <View className="px-4 my-5">
           <Text className="text-xl font-bold mb-1" style={{ color: colors.text }}>
-            Hello, Wonjala.
+            Hello, simbi.
           </Text>
           <Text className="text-base font-semibold" style={{ color: colors.textSecondary }}>
             Looking for a bus?
