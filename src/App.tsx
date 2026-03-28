@@ -1,9 +1,9 @@
 import React from 'react';
 import '../global.css';
-import LiveBusTrackerScreen from './screens/LiveBusTrackerScreen';
+import RootNavigator from './navigation/RootNavigator';
 
 const App = () => {
-  return <LiveBusTrackerScreen />;
+  return <RootNavigator />;
 };
 
 export default App;
