@@ -10,6 +10,7 @@ export const lightTheme = {
   error: '#C0392B',
   success: '#1E8449',
   warning: '#E67E22',
+  secondary: '#F5A623',
   white: '#FFFFFF',
   black: '#000000',
   gray: '#888888',
