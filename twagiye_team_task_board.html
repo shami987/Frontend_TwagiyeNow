@@ -1,0 +1,143 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.board{padding:1rem 0}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:1.25rem}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:5px;flex-shrink:0}
+.legend-item{display:flex;align-items:center;font-size:12px;color:var(--color-text-secondary)}
+.dev-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.shared-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:1.5rem}
+.col-card{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:12px;border:0.5px solid var(--color-border-tertiary)}
+.col-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.col-title{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.badge{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
+.b-purple{background:#EEEDFE;color:#3C3489}.b-teal{background:#E1F5EE;color:#085041}
+.b-coral{background:#FAECE7;color:#712B13}.b-amber{background:#FAEEDA;color:#633806}
+.task{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:8px 10px;margin-bottom:7px;cursor:pointer;transition:border-color .15s}
+.task:hover{border-color:var(--color-border-secondary)}
+.task-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
+.task-name{font-size:13px;font-weight:500;color:var(--color-text-primary);line-height:1.3}
+.task-sub{font-size:11px;color:var(--color-text-secondary);margin-top:3px;line-height:1.4}
+.tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.tag{font-size:10px;padding:1px 6px;border-radius:10px;border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary)}
+.count-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem}
+.count-card{flex:1;min-width:130px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;border:0.5px solid var(--color-border-tertiary)}
+.count-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:3px}
+.count-num{font-size:22px;font-weight:500;color:var(--color-text-primary)}
+.count-sub{font-size:11px;color:var(--color-text-secondary)}
+.section-label{font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em}
+.shared-title{font-size:13px;font-weight:500;margin-bottom:4px;color:var(--color-text-primary)}
+.shared-sub{font-size:11px;color:var(--color-text-secondary);margin-bottom:8px}
+.chip-row{display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-size:11px;padding:2px 8px;border-radius:10px;background:var(--color-background-tertiary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary)}
+</style>
+<div class="board">
+
+<div class="count-row">
+  <div class="count-card"><div class="count-label">Total screens</div><div class="count-num">18</div><div class="count-sub">across 4 flows</div></div>
+  <div class="count-card"><div class="count-label">Shared components</div><div class="count-num">24</div><div class="count-sub">reusable UI</div></div>
+  <div class="count-card"><div class="count-label">Team members</div><div class="count-num">4</div><div class="count-sub">devs on frontend</div></div>
+  <div class="count-card"><div class="count-label">Tasks per dev</div><div class="count-num">~9</div><div class="count-sub">pages + components</div></div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="dot" style="background:#534AB7"></span>Dev 1 — Auth &amp; Onboarding</div>
+  <div class="legend-item"><span class="dot" style="background:#0F6E56"></span>Dev 2 — Booking &amp; Tickets</div>
+  <div class="legend-item"><span class="dot" style="background:#993C1D"></span>Dev 3 — Live &amp; Maps</div>
+  <div class="legend-item"><span class="dot" style="background:#854F0B"></span>Dev 4 — Profile &amp; Notifications</div>
+</div>
+
+<div class="section-label">Individual dev streams</div>
+<div class="dev-cols">
+
+  <!-- DEV 1 -->
+  <div class="col-card">
+    <div class="col-header">
+      <span class="col-title">Dev 1 — Auth &amp; onboarding</span>
+      <span class="badge b-purple">5 screens · 4 components</span>
+    </div>
+    <div class="task"><div class="task-top"><span class="task-name">Splash / onboarding screen</span></div><div class="task-sub">3-step intro slides, skip button</div><div class="tags"><span class="tag">Screen</span><span class="tag">Animated</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Login screen</span></div><div class="task-sub">Phone + password, show/hide toggle</div><div class="tags"><span class="tag">Screen</span><span class="tag">Form</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Register screen</span></div><div class="task-sub">Name, phone, email, ID upload</div><div class="tags"><span class="tag">Screen</span><span class="tag">Form</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">OTP verification screen</span></div><div class="task-sub">6-digit input, resend countdown</div><div class="tags"><span class="tag">Screen</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Forgot password screen</span></div><div class="task-sub">Reset via SMS flow</div><div class="tags"><span class="tag">Screen</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">AppInput component</span></div><div class="task-sub">Label, error state, icon slot</div><div class="tags"><span class="tag">Component</span><span class="tag">Shared</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">AppButton component</span></div><div class="task-sub">Primary, secondary, loading state</div><div class="tags"><span class="tag">Component</span><span class="tag">Shared</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">OTPInput component</span></div><div class="task-sub">Auto-advance, paste support</div><div class="tags"><span class="tag">Component</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">AuthLayout wrapper</span></div><div class="task-sub">Background, logo, keyboard avoid</div><div class="tags"><span class="tag">Component</span></div></div>
+  </div>
+
+  <!-- DEV 2 -->
+  <div class="col-card">
+    <div class="col-header">
+      <span class="col-title">Dev 2 — Booking &amp; tickets</span>
+      <span class="badge b-teal">5 screens · 5 components</span>
+    </div>
+    <div class="task"><div class="task-top"><span class="task-name">Home / search screen</span></div><div class="task-sub">From/to selector, date picker</div><div class="tags"><span class="tag">Screen</span><span class="tag">Core</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Bus list screen</span></div><div class="task-sub">Filters (price, time), sort options</div><div class="tags"><span class="tag">Screen</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Seat selection screen</span></div><div class="task-sub">Interactive seat grid, legend</div><div class="tags"><span class="tag">Screen</span><span class="tag">Interactive</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Payment screen</span></div><div class="task-sub">MoMo / Airtel, confirm total</div><div class="tags"><span class="tag">Screen</span><span class="tag">Form</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Ticket / QR screen</span></div><div class="task-sub">QR code, trip details, share</div><div class="tags"><span class="tag">Screen</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">BusCard component</span></div><div class="task-sub">Company, time, seats, price</div><div class="tags"><span class="tag">Component</span><span class="tag">Shared</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">SeatGrid component</span></div><div class="task-sub">Available / booked / selected states</div><div class="tags"><span class="tag">Component</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">DatePicker component</span></div><div class="task-sub">Custom calendar strip</div><div class="tags"><span class="tag">Component</span><span class="tag">Shared</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">TicketCard component</span></div><div class="task-sub">QR, route, passenger info</div><div class="tags"><span class="tag">Component</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">PaymentMethodPicker</span></div><div class="task-sub">MoMo, Airtel, icons + selection</div><div class="tags"><span class="tag">Component</span></div></div>
+  </div>
+
+  <!-- DEV 3 -->
+  <div class="col-card">
+    <div class="col-header">
+      <span class="col-title">Dev 3 — Live tracking &amp; maps</span>
+      <span class="badge b-coral">4 screens · 5 components</span>
+    </div>
+    <div class="task"><div class="task-top"><span class="task-name">Live bus tracker screen</span></div><div class="task-sub">Map + bus pin, ETA card</div><div class="tags"><span class="tag">Screen</span><span class="tag">Map</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Park map screen</span></div><div class="task-sub">Gate finder, static park layout</div><div class="tags"><span class="tag">Screen</span><span class="tag">Map</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Schedule / departures screen</span></div><div class="task-sub">Timetable list, real-time updates</div><div class="tags"><span class="tag">Screen</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Private car booking screen</span></div><div class="task-sub">Available cars, driver info, book</div><div class="tags"><span class="tag">Screen</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">MapView component</span></div><div class="task-sub">React Native Maps wrapper</div><div class="tags"><span class="tag">Component</span><span class="tag">Shared</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">BusMarker component</span></div><div class="task-sub">Animated pin with plate number</div><div class="tags"><span class="tag">Component</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">ETABadge component</span></div><div class="task-sub">Live countdown, color coded</div><div class="tags"><span class="tag">Component</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">ScheduleRow component</span></div><div class="task-sub">Departure time, status pill</div><div class="tags"><span class="tag">Component</span><span class="tag">Shared</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">PrivateCarCard component</span></div><div class="task-sub">Driver photo, rating, price</div><div class="tags"><span class="tag">Component</span></div></div>
+  </div>
+
+  <!-- DEV 4 -->
+  <div class="col-card">
+    <div class="col-header">
+      <span class="col-title">Dev 4 — Profile &amp; notifications</span>
+      <span class="badge b-amber">4 screens · 5 components</span>
+    </div>
+    <div class="task"><div class="task-top"><span class="task-name">Profile / settings screen</span></div><div class="task-sub">Edit info, language, logout</div><div class="tags"><span class="tag">Screen</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Booking history screen</span></div><div class="task-sub">Past trips, reuse ticket</div><div class="tags"><span class="tag">Screen</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Notifications screen</span></div><div class="task-sub">Delays, cancellations, promos</div><div class="tags"><span class="tag">Screen</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">Bottom tab navigator</span></div><div class="task-sub">Home, Tickets, Track, Profile</div><div class="tags"><span class="tag">Screen</span><span class="tag">Navigation</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">NotificationCard component</span></div><div class="task-sub">Icon, title, time, read state</div><div class="tags"><span class="tag">Component</span><span class="tag">Shared</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">HistoryCard component</span></div><div class="task-sub">Route, date, status badge</div><div class="tags"><span class="tag">Component</span><span class="tag">Shared</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">ProfileAvatar component</span></div><div class="task-sub">Image, initials fallback</div><div class="tags"><span class="tag">Component</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">SettingsRow component</span></div><div class="task-sub">Label, value, chevron/toggle</div><div class="tags"><span class="tag">Component</span><span class="tag">Shared</span></div></div>
+    <div class="task"><div class="task-top"><span class="task-name">StatusPill component</span></div><div class="task-sub">Confirmed / delayed / cancelled</div><div class="tags"><span class="tag">Component</span><span class="tag">Shared</span></div></div>
+  </div>
+
+</div>
+
+<div class="section-label">Shared foundation — all 4 devs contribute</div>
+<div class="shared-col">
+  <div class="col-card">
+    <div class="shared-title">Design system setup</div>
+    <div class="shared-sub">Do this first, together, Week 1</div>
+    <div class="chip-row">
+      <span class="chip">colors.ts</span><span class="chip">typography.ts</span><span class="chip">spacing.ts</span><span class="chip">theme provider</span><span class="chip">AppText</span><span class="chip">AppIcon</span><span class="chip">AppHeader</span><span class="chip">BottomSheet</span>
+    </div>
+  </div>
+  <div class="col-card">
+    <div class="shared-title">Folder structure convention</div>
+    <div class="shared-sub">Agree before anyone writes a file</div>
+    <div class="chip-row">
+      <span class="chip">src/screens/</span><span class="chip">src/components/</span><span class="chip">src/navigation/</span><span class="chip">src/services/</span><span class="chip">src/store/</span><span class="chip">src/hooks/</span><span class="chip">src/utils/</span><span class="chip">src/theme/</span>
+    </div>
+  </div>
+</div>
+
+</div>
