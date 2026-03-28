@@ -1,9 +1,9 @@
 import React from 'react';
 import '../global.css';
-import RootNavigator from './navigation/RootNavigator';
+import AppNavigator from './navigation/AppNavigator';
 
 const App = () => {
-  return <RootNavigator />;
+  return <AppNavigator />;
 };
 
 export default App;
