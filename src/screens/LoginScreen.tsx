@@ -33,8 +33,8 @@ const LoginScreen = ({navigation}: any) => {
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-        <Text style={styles.link}>Forgot password? <Text style={styles.linkBold}>Reset</Text></Text>
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotLink}>
+        <Text style={styles.linkBold}>Forgot Password?</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
@@ -92,6 +92,9 @@ const styles = StyleSheet.create({
   link: {
     ...fonts.body,
     color: colors.gray,
+  },
+  forgotLink: {
+    marginBottom: 16,
   },
   linkBold: {
     color: colors.primary,
