@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Bus, Repeat } from 'lucide-react-native';
+import { Bus, Repeat, Navigation } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
 import StatusPill, { TripStatus } from './StatusPill';
 
@@ -9,11 +9,12 @@ interface HistoryCardProps {
   date: string;
   status: TripStatus;
   price: string;
+  distance?: string;
   onReuse?: () => void;
   onPress?: () => void;
 }
 
-const HistoryCard = ({ route, date, status, price, onReuse, onPress }: HistoryCardProps) => {
+const HistoryCard = ({ route, date, status, price, distance, onReuse, onPress }: HistoryCardProps) => {
   const { colors } = useTheme();
 
   return (
@@ -29,7 +30,15 @@ const HistoryCard = ({ route, date, status, price, onReuse, onPress }: HistoryCa
           </View>
           <View>
             <Text style={[styles.routeText, { color: colors.text }]}>{route}</Text>
-            <Text style={[styles.dateText, { color: colors.textSecondary }]}>{date}</Text>
+            <View className="flex-row items-center">
+              <Text style={[styles.dateText, { color: colors.textSecondary }]}>{date}</Text>
+              {distance && (
+                <View className="flex-row items-center ml-2 bg-gray-100 px-2 py-0.5 rounded-full">
+                  <Navigation size={10} color={colors.textSecondary} />
+                  <Text className="text-[10px] ml-1 font-medium" style={{ color: colors.textSecondary }}>{distance}</Text>
+                </View>
+              )}
+            </View>
           </View>
         </View>
         <StatusPill status={status} />

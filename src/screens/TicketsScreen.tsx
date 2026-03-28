@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Dimensions, Modal, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { History, MapPin, Calendar, Clock, Ticket as TicketIcon, QrCode, ChevronRight, X } from 'lucide-react-native';
+import { History, MapPin, Calendar, Clock, Ticket as TicketIcon, QrCode, ChevronRight, X, Wallet, Navigation } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
 
 const { width, height } = Dimensions.get('window');
@@ -19,6 +19,7 @@ const DUMMY_TICKETS = [
     gate: '02',
     status: 'Upcoming',
     price: '3,000 RWF',
+    distance: '95 km',
   },
   {
     id: 'HZ-4055',
@@ -31,6 +32,7 @@ const DUMMY_TICKETS = [
     gate: '05',
     status: 'Confirmed',
     price: '2,500 RWF',
+    distance: '127 km',
   },
 ];
 
@@ -121,9 +123,23 @@ const TicketsScreen = ({ navigation }: any) => {
                     <Text className="text-[10px] font-medium uppercase mb-0.5" style={{ color: colors.textSecondary }}>Seat</Text>
                     <Text className="text-sm font-bold" style={{ color: colors.text }}>{ticket.seat}</Text>
                   </View>
-                  <View>
+                  <View className="mr-6">
                     <Text className="text-[10px] font-medium uppercase mb-0.5" style={{ color: colors.textSecondary }}>Gate</Text>
                     <Text className="text-sm font-bold" style={{ color: colors.text }}>{ticket.gate}</Text>
+                  </View>
+                  <View className="mr-6">
+                    <Text className="text-[10px] font-medium uppercase mb-0.5" style={{ color: colors.textSecondary }}>Dist</Text>
+                    <View className="flex-row items-center">
+                      <Navigation size={12} color={colors.primary} className="mr-1" />
+                      <Text className="text-sm font-bold" style={{ color: colors.text }}>{ticket.distance}</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <Text className="text-[10px] font-medium uppercase mb-0.5" style={{ color: colors.textSecondary }}>Cost</Text>
+                    <View className="flex-row items-center">
+                      <Wallet size={12} color={colors.primary} className="mr-1" />
+                      <Text className="text-sm font-bold" style={{ color: colors.primary }}>{ticket.price}</Text>
+                    </View>
                   </View>
                 </View>
                 

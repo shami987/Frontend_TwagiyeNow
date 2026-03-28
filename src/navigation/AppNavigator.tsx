@@ -25,6 +25,7 @@ import PersonalInformationScreen from '../screens/PersonalInformationScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import AIAssistantScreen from '../screens/AIAssistantScreen';
 import PrivateCarBookingScreen from '../screens/PrivateCarBookingScreen';
+import BusParkFeatureScreen from '../screens/BusParkFeatureScreen';
 import {useTheme} from '../theme/ThemeContext';
 
 const Stack = createNativeStackNavigator();
@@ -90,6 +91,7 @@ const AppNavigator = () => {
         <Stack.Screen name="EditProfile" component={EditProfileScreen} />
         <Stack.Screen name="AIAssistant" component={AIAssistantScreen} />
         <Stack.Screen name="PrivateCarBooking" component={PrivateCarBookingScreen} />
+        <Stack.Screen name="BusParkFeature" component={BusParkFeatureScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,136 +1,138 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
-import { colors } from '../theme';
+import { View, Text, TouchableOpacity, ScrollView, Dimensions, Image, SafeAreaView } from 'react-native';
+import { ChevronLeft, Clock, MapPin, Navigation, Info, ShieldCheck, Wifi, Coffee, Music, Armchair } from 'lucide-react-native';
+import { useTheme } from '../theme/ThemeContext';
 
-export default function BusDetailsScreen({ navigation }) {
+const { width } = Dimensions.get('window');
+
+export default function BusDetailsScreen({ navigation, route }: any) {
+  const { colors } = useTheme();
+  const { bus } = route.params || {};
+
+  // Fallback data if params are missing
+  const busData = bus || {
+    name: 'BUS 3',
+    busNo: 'RA 123 C',
+    departTime: '06:30 AM',
+    arrivalTime: '08:50 AM',
+    from: 'Nyabugogo',
+    to: 'Huye',
+    price: '3,500',
+    currency: 'RWF',
+    distance: '127 km',
+    company: 'Horizon Express',
+  };
+
+  const FacilityItem = ({ icon: Icon, label }: any) => (
+    <View className="items-center mr-6">
+      <View className="w-12 h-12 rounded-2xl bg-gray-50 items-center justify-center mb-1 border border-gray-100">
+        <Icon size={20} color={colors.primary} />
+      </View>
+      <Text className="text-[10px] font-bold text-gray-500 uppercase">{label}</Text>
+    </View>
+  );
+
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.white }} showsVerticalScrollIndicator={false}>
-      {/* Back Button */}
-      <View style={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 8 }}>
-        <TouchableOpacity onPress={() => navigation?.goBack()}>
-          <Text style={{ fontSize: 24 }}>←</Text>
-        </TouchableOpacity>
-      </View>
+    <SafeAreaView className="flex-1" style={{ backgroundColor: colors.background }}>
+      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+        {/* Header Image Section */}
+        <View className="relative h-64 w-full">
+          <Image
+            source={{ uri: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=1000' }}
+            className="w-full h-full"
+            resizeMode="cover"
+          />
+          <View className="absolute inset-0 bg-black/30" />
+          
+          {/* Back Button */}
+          <TouchableOpacity 
+            onPress={() => navigation.goBack()}
+            className="absolute top-12 left-4 w-10 h-10 rounded-full bg-white/20 items-center justify-center border border-white/30"
+          >
+            <ChevronLeft size={24} color="white" />
+          </TouchableOpacity>
 
-      {/* Bus Image Placeholder */}
-      <View
-        style={{
-          height: 200,
-          backgroundColor: colors.lightGray,
-          marginHorizontal: 16,
-          marginBottom: 16,
-          borderRadius: 12,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Text style={{ color: colors.gray, fontSize: 14 }}>Bus Image</Text>
-      </View>
-
-      {/* Bus Name Badge */}
-      <View style={{ alignItems: 'center', marginBottom: 16 }}>
-        <View
-          style={{
-            backgroundColor: colors.primary,
-            paddingHorizontal: 40,
-            paddingVertical: 12,
-            borderRadius: 20,
-          }}
-        >
-          <Text style={{ color: colors.white, fontSize: 20, fontWeight: 'bold' }}>
-            BUS 3
-          </Text>
-        </View>
-      </View>
-
-      {/* Bus Details Card */}
-      <View
-        style={{
-          marginHorizontal: 16,
-          marginBottom: 16,
-          backgroundColor: colors.lightGray,
-          borderRadius: 12,
-          padding: 16,
-        }}
-      >
-        {/* Date */}
-        <Text style={{ color: colors.gray, fontSize: 14, marginBottom: 12 }}>
-          Sat, 1st Jan, 2022
-        </Text>
-
-        {/* Bus Number */}
-        <Text style={{ fontSize: 18, fontWeight: '600', color: colors.black, marginBottom: 16 }}>
-          Bus no. BA123
-        </Text>
-
-        {/* Route */}
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
-          <View>
-            <Text style={{ color: colors.primary, fontSize: 18, fontWeight: 'bold', marginBottom: 4 }}>
-              Nakhipot
-            </Text>
-            <Text style={{ color: colors.gray, fontSize: 14 }}>06:30AM</Text>
-          </View>
-          <View style={{ justifyContent: 'center' }}>
-            <Text style={{ color: colors.gray }}>◯-----------◯</Text>
-          </View>
-          <View style={{ alignItems: 'flex-end' }}>
-            <Text style={{ color: colors.primary, fontSize: 18, fontWeight: 'bold', marginBottom: 4 }}>
-              Manbhawan
-            </Text>
-            <Text style={{ color: colors.gray, fontSize: 14 }}>06:50AM</Text>
+          {/* Bus Badge Overlay */}
+          <View className="absolute bottom-6 left-6">
+            <View className="bg-primary px-3 py-1 rounded-full self-start mb-2" style={{ backgroundColor: colors.primary }}>
+              <Text className="text-white text-[10px] font-bold uppercase tracking-widest">{busData.company}</Text>
+            </View>
+            <Text className="text-white text-3xl font-bold">{busData.name}</Text>
+            <Text className="text-white/80 text-sm font-medium">{busData.busNo} • VIP Class</Text>
           </View>
         </View>
-      </View>
 
-      {/* Available Seats */}
-      <View style={{ marginHorizontal: 16, marginBottom: 16 }}>
-        <Text style={{ fontSize: 16, fontWeight: 'bold', color: colors.black, marginBottom: 8 }}>
-          Available Seats
-        </Text>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ color: colors.gray, fontSize: 14 }}>12 seats available</Text>
-          <Text style={{ color: colors.gray, fontSize: 14 }}>2*2 Seat Arrangement</Text>
-        </View>
-      </View>
+        {/* Content Section */}
+        <View className="flex-1 bg-white -mt-6 rounded-t-[40px] p-6 shadow-2xl">
+          {/* Journey Summary */}
+          <View className="flex-row items-center justify-between mb-8">
+            <View>
+              <Text className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">DEPARTURE</Text>
+              <Text className="text-xl font-bold" style={{ color: colors.text }}>{busData.departTime}</Text>
+              <Text className="text-sm font-medium text-gray-500">{busData.from}</Text>
+            </View>
 
-      {/* Facility */}
-      <View style={{ marginHorizontal: 16, marginBottom: 16 }}>
-        <Text style={{ fontSize: 16, fontWeight: 'bold', color: colors.black, marginBottom: 12 }}>
-          Facility
-        </Text>
-        <View style={{ marginBottom: 12 }}>
-          <Text style={{ fontSize: 14, color: colors.black }}>🪑 Comfort Seats</Text>
-        </View>
-        <View style={{ marginBottom: 12 }}>
-          <Text style={{ fontSize: 14, color: colors.black }}>🕐 On Time</Text>
-        </View>
-        <View>
-          <Text style={{ fontSize: 14, color: colors.black }}>💼 Storage Space</Text>
-        </View>
-      </View>
+            <View className="flex-1 items-center px-4">
+              <View className="flex-row items-center w-full">
+                <View className="w-2 h-2 rounded-full border-2 border-primary" style={{ borderColor: colors.primary }} />
+                <View className="flex-1 h-[1px] border-t border-dashed border-gray-300 mx-1" />
+                <Navigation size={20} color={colors.primary} />
+                <View className="flex-1 h-[1px] border-t border-dashed border-gray-300 mx-1" />
+                <View className="w-2 h-2 rounded-full bg-gray-300" />
+              </View>
+              <Text className="text-xs font-bold mt-2" style={{ color: colors.primary }}>{busData.distance}</Text>
+            </View>
 
-      {/* Pricing */}
-      <View style={{ marginHorizontal: 16, marginBottom: 24, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-        <View>
-          <Text style={{ color: colors.gray, fontSize: 14, marginBottom: 4 }}>2 * 60.00</Text>
-          <Text style={{ color: colors.primary, fontSize: 20, fontWeight: 'bold' }}>
-            Rs. 120.00
-          </Text>
+            <View className="items-end">
+              <Text className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">ARRIVAL</Text>
+              <Text className="text-xl font-bold" style={{ color: colors.text }}>{busData.arrivalTime}</Text>
+              <Text className="text-sm font-medium text-gray-500 text-right">{busData.to}</Text>
+            </View>
+          </View>
+
+          {/* Facilities */}
+          <View className="mb-8">
+            <Text className="text-lg font-bold mb-4" style={{ color: colors.text }}>Premium Facilities</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row">
+              <FacilityItem icon={Wifi} label="Wifi" />
+              <FacilityItem icon={Coffee} label="Snacks" />
+              <FacilityItem icon={Music} label="Music" />
+              <FacilityItem icon={Armchair} label="VIP Seats" />
+              <FacilityItem icon={ShieldCheck} label="Secure" />
+            </ScrollView>
+          </View>
+
+          {/* Info Card */}
+          <View className="bg-blue-50 p-4 rounded-3xl flex-row items-start border border-blue-100 mb-8">
+            <Info size={20} color={colors.primary} className="mt-0.5" />
+            <View className="flex-1 ml-3">
+              <Text className="text-sm font-bold text-blue-900 mb-1">Travel Advisory</Text>
+              <Text className="text-xs text-blue-800 leading-4">
+                Please arrive at the terminal at least 15 minutes before departure. Masks are recommended for comfort.
+              </Text>
+            </View>
+          </View>
+
+          {/* Booking Section */}
+          <View className="flex-row items-center justify-between pt-4 border-t border-gray-100 mb-6">
+            <View>
+              <Text className="text-xs font-bold text-gray-400 uppercase">TOTAL PRICE</Text>
+              <View className="flex-row items-baseline">
+                <Text className="text-3xl font-bold" style={{ color: colors.primary }}>{busData.price}</Text>
+                <Text className="text-sm font-bold ml-1 text-gray-500">{busData.currency}</Text>
+              </View>
+            </View>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('PaymentMethods')}
+              className="bg-primary px-10 py-4 rounded-[25px] shadow-lg shadow-primary/30"
+              style={{ backgroundColor: colors.primary }}
+            >
+              <Text className="text-white font-bold text-lg">BOOK NOW</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity
-          style={{
-            backgroundColor: colors.primary,
-            paddingHorizontal: 32,
-            paddingVertical: 12,
-            borderRadius: 20,
-          }}
-        >
-          <Text style={{ color: colors.white, fontSize: 16, fontWeight: '600' }}>
-            Book Now
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+        <View className="h-10" />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
