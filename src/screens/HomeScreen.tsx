@@ -1,229 +1,186 @@
-import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
-import { Bell } from 'lucide-react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, TextInput, Dimensions, StyleSheet, SafeAreaView } from 'react-native';
+import { Bell, MapPin, Users, Calendar, Clock, Bot, Sparkles, Car } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
+
+const { width } = Dimensions.get('window');
 
 const HomeScreen = ({ navigation }: any) => {
   const { colors } = useTheme();
+  const [from, setFrom] = useState('Nyabugogo, Kigali');
+  const [to, setTo] = useState('Musanze City');
+  const [passengers, setPassengers] = useState('1 Person');
+  const [date, setDate] = useState('March 29, 2026');
+  const [time, setTime] = useState('07:00 AM');
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <View style={[styles.header, { backgroundColor: colors.surface, borderBottomColor: colors.border }]}>
-        <Text style={[styles.title, { color: colors.primary }]}>TwagiyeNow</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
-          <Bell size={24} color={colors.text} />
+    <SafeAreaView className="flex-1" style={{ backgroundColor: colors.background }}>
+      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+        {/* Header */}
+        <View className="px-4 pt-5 pb-6 flex-row justify-between items-center" style={{ backgroundColor: colors.surface }}>
+          <Text className="text-3xl font-bold" style={{ color: colors.primary }}>
+            TwagiyeNow
+          </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+            <Bell size={24} color={colors.text} />
+          </TouchableOpacity>
+        </View>
+
+        {/* Action Banners */}
+        <View className="flex-row px-4 mt-4 space-x-3">
+          {/* AI Banner */}
+          <TouchableOpacity 
+            onPress={() => navigation.navigate('AIAssistant')}
+            className="flex-1 rounded-2xl p-4 overflow-hidden"
+            style={{ backgroundColor: colors.primaryLight }}
+          >
+            <View className="bg-white/20 absolute -right-2 -top-2 w-16 h-16 rounded-full" />
+            <Bot size={24} color={colors.primary} />
+            <Text className="text-sm font-bold mt-2" style={{ color: colors.primary }}>AI Trip Plan</Text>
+            <Text className="text-[10px] font-medium" style={{ color: colors.primary }}>Smart Assistant</Text>
+          </TouchableOpacity>
+
+          {/* Private Car Banner */}
+          <TouchableOpacity 
+            onPress={() => navigation.navigate('PrivateCarBooking')}
+            className="flex-1 rounded-2xl p-4 overflow-hidden"
+            style={{ backgroundColor: '#E0F2FE' }}
+          >
+            <View className="bg-blue-400/10 absolute -right-2 -top-2 w-16 h-16 rounded-full" />
+            <Car size={24} color="#0284C7" />
+            <Text className="text-sm font-bold mt-2" style={{ color: '#0284C7' }}>Private Car</Text>
+            <Text className="text-[10px] font-medium" style={{ color: '#0284C7' }}>Premium Ride</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Greeting */}
+        <View className="px-4 my-5">
+          <Text className="text-xl font-bold mb-1" style={{ color: colors.text }}>
+            Hello, Wonjala.
+          </Text>
+          <Text className="text-base font-semibold" style={{ color: colors.textSecondary }}>
+            Looking for a bus?
+          </Text>
+        </View>
+
+        {/* Search Card */}
+        <View
+          className="mx-4 mb-5 rounded-2xl p-4 shadow-lg"
+          style={{
+            backgroundColor: colors.surface,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.1,
+            shadowRadius: 8,
+            elevation: 5,
+          }}
+        >
+          {/* From */}
+          <View className="mb-4">
+            <View className="flex-row items-center mb-1.5">
+              <MapPin size={16} color={colors.primary} />
+              <Text className="text-sm font-semibold ml-1.5" style={{ color: colors.text }}>From</Text>
+            </View>
+            <TextInput
+              value={from}
+              onChangeText={setFrom}
+              className="border-b py-1.5 text-sm"
+              style={{
+                borderBottomColor: colors.border,
+                color: colors.text,
+              }}
+            />
+          </View>
+
+          {/* To */}
+          <View className="mb-4">
+            <View className="flex-row items-center mb-1.5">
+              <MapPin size={16} color={colors.secondary} />
+              <Text className="text-sm font-semibold ml-1.5" style={{ color: colors.text }}>To</Text>
+            </View>
+            <TextInput
+              value={to}
+              onChangeText={setTo}
+              className="border-b py-1.5 text-sm"
+              style={{
+                borderBottomColor: colors.border,
+                color: colors.text,
+              }}
+            />
+          </View>
+
+          {/* Passenger */}
+          <View className="mb-4">
+            <View className="flex-row items-center mb-1.5">
+              <Users size={16} color={colors.primary} />
+              <Text className="text-sm font-semibold ml-1.5" style={{ color: colors.text }}>Passenger</Text>
+            </View>
+            <TextInput
+              value={passengers}
+              onChangeText={setPassengers}
+              className="border-b py-1.5 text-sm"
+              style={{
+                borderBottomColor: colors.border,
+                color: colors.text,
+              }}
+            />
+          </View>
+
+          {/* Date and Time */}
+          <View className="flex-row justify-between gap-2">
+            <View className="flex-1">
+              <View className="flex-row items-center mb-1.5">
+                <Calendar size={16} color={colors.primary} />
+                <Text className="text-sm font-semibold ml-1.5" style={{ color: colors.text }}>Date</Text>
+              </View>
+              <TextInput
+                value={date}
+                onChangeText={setDate}
+                className="border-b py-1.5 text-sm"
+                style={{
+                  borderBottomColor: colors.border,
+                  color: colors.text,
+                }}
+              />
+            </View>
+            <View className="flex-1">
+              <View className="flex-row items-center mb-1.5">
+                <Clock size={16} color={colors.primary} />
+                <Text className="text-sm font-semibold ml-1.5" style={{ color: colors.text }}>Time</Text>
+              </View>
+              <TextInput
+                value={time}
+                onChangeText={setTime}
+                className="border-b py-1.5 text-sm"
+                style={{
+                  borderBottomColor: colors.border,
+                  color: colors.text,
+                }}
+              />
+            </View>
+          </View>
+        </View>
+
+        {/* Search Now Button */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('BusSearchResults')}
+          className="mx-4 py-4 rounded-[30px] items-center mb-5"
+          style={{ backgroundColor: colors.primary }}
+        >
+          <Text className="text-white text-base font-bold">SEARCH NOW</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.content}>
-        <Text style={[styles.text, { color: colors.text }]}>Welcome to TwagiyeNow!</Text>
-      </View>
+
+        {/* Live Tracking Button */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('LiveTrack')}
+          className="mx-4 py-4 rounded-[30px] items-center mb-10"
+          style={{ backgroundColor: colors.secondary }}
+        >
+          <Text className="text-white text-base font-bold">LIVE TRACKING</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 1,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 18,
-  },
-});
-
 export default HomeScreen;
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, TextInput, Dimensions } from 'react-native';
-import { colors } from '../theme';
-
-const { width } = Dimensions.get('window');
-
-export default function HomeScreen({ navigation }) {
-  const [from, setFrom] = useState('Nakhipot');
-  const [to, setTo] = useState('Manbhawan');
-  const [passengers, setPassengers] = useState('2 people');
-  const [date, setDate] = useState('2022/1/1');
-  const [time, setTime] = useState('6.30 AM');
-
-  return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.white }} showsVerticalScrollIndicator={false}>
-      {/* Safe Area Top Spacing */}
-      <View style={{ height: 40 }} />
-
-      {/* Header */}
-      <View style={{ paddingHorizontal: 16, paddingTop: 20, paddingBottom: 24, backgroundColor: colors.primaryLight }}>
-        <Text style={{ fontSize: 28, fontWeight: 'bold', color: colors.primary }}>
-          TwagiyeNow
-        </Text>
-      </View>
-
-      {/* Greeting */}
-      <View style={{ paddingHorizontal: 16, marginBottom: 20 }}>
-        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 4 }}>
-          Hello, Wonjala.
-        </Text>
-        <Text style={{ fontSize: 16, fontWeight: '600', color: colors.black }}>
-          Looking for a bus?
-        </Text>
-      </View>
-
-      {/* Bus Stop Illustration Placeholder */}
-      <View
-        style={{
-          height: 150,
-          backgroundColor: colors.lightGray,
-          marginHorizontal: 16,
-          marginBottom: 20,
-          borderRadius: 12,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Text style={{ color: colors.gray, fontSize: 12 }}>Bus Stop Illustration</Text>
-      </View>
-
-      {/* Search Card */}
-      <View
-        style={{
-          marginHorizontal: 16,
-          marginBottom: 20,
-          backgroundColor: colors.white,
-          borderRadius: 16,
-          padding: 16,
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 8,
-          elevation: 5,
-        }}
-      >
-        {/* From */}
-        <View style={{ marginBottom: 16 }}>
-          <Text style={{ fontSize: 14, fontWeight: '600', marginBottom: 6 }}>● From</Text>
-          <TextInput
-            value={from}
-            onChangeText={setFrom}
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: colors.gray,
-              paddingVertical: 6,
-              fontSize: 14,
-              color: colors.black,
-            }}
-          />
-        </View>
-
-        {/* To */}
-        <View style={{ marginBottom: 16 }}>
-          <Text style={{ fontSize: 14, fontWeight: '600', marginBottom: 6 }}>◯ To</Text>
-          <TextInput
-            value={to}
-            onChangeText={setTo}
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: colors.gray,
-              paddingVertical: 6,
-              fontSize: 14,
-              color: colors.black,
-            }}
-          />
-        </View>
-
-        {/* Passenger */}
-        <View style={{ marginBottom: 16 }}>
-          <Text style={{ fontSize: 14, fontWeight: '600', marginBottom: 6 }}>👥 Passenger</Text>
-          <TextInput
-            value={passengers}
-            onChangeText={setPassengers}
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: colors.gray,
-              paddingVertical: 6,
-              fontSize: 14,
-              color: colors.black,
-            }}
-          />
-        </View>
-
-        {/* Date and Time */}
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 8 }}>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 14, fontWeight: '600', marginBottom: 6 }}>📅 Date</Text>
-            <TextInput
-              value={date}
-              onChangeText={setDate}
-              style={{
-                borderBottomWidth: 1,
-                borderBottomColor: colors.gray,
-                paddingVertical: 6,
-                fontSize: 14,
-                color: colors.black,
-              }}
-            />
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 14, fontWeight: '600', marginBottom: 6 }}>🕐 Time</Text>
-            <TextInput
-              value={time}
-              onChangeText={setTime}
-              style={{
-                borderBottomWidth: 1,
-                borderBottomColor: colors.gray,
-                paddingVertical: 6,
-                fontSize: 14,
-                color: colors.black,
-              }}
-            />
-          </View>
-        </View>
-      </View>
-
-      {/* Search Now Button */}
-      <TouchableOpacity
-        onPress={() => navigation?.navigate('BusSearchResults')}
-        style={{
-          marginHorizontal: 32,
-          marginBottom: 20,
-          backgroundColor: colors.primary,
-          paddingVertical: 14,
-          borderRadius: 30,
-          alignItems: 'center',
-        }}
-      >
-        <Text style={{ color: colors.white, fontSize: 16, fontWeight: '600' }}>
-          Search Now
-        </Text>
-      </TouchableOpacity>
-
-      {/* Bottom Navigation Placeholder */}
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          paddingVertical: 12,
-          borderTopWidth: 1,
-          borderTopColor: colors.lightGray,
-        }}
-      >
-        <Text style={{ fontSize: 18 }}>🔍</Text>
-        <Text style={{ fontSize: 18 }}>☰</Text>
-        <Text style={{ fontSize: 18 }}>👤</Text>
-      </View>
-    </ScrollView>
-  );
-}

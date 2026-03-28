@@ -1,17 +1,14 @@
-import React, {useEffect} from 'react';
-import {View, Image, StyleSheet} from 'react-native';
-import {colors} from '../theme';
+import React from 'react';
+import {View, Image, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {colors, fonts} from '../theme';
 
 const OpeningScreen = ({navigation}: any) => {
-  // Auto-navigate to Onboarding after 2.5 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => navigation.replace('Onboarding'), 2500);
-    return () => clearTimeout(timer);
-  }, [navigation]);
-
   return (
     <View style={styles.container}>
       <Image source={require('../assets/images/logoo.png')} style={styles.logo} resizeMode="contain" />
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Onboarding')}>
+        <Text style={styles.buttonText}>Get Started</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -26,6 +23,31 @@ const styles = StyleSheet.create({
   logo: {
     width: 260,
     height: 260,
+  },
+  appName: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    letterSpacing: 1,
+    marginTop: 8,
+  },
+  namePrimary: {
+    color: colors.primary,
+  },
+  nameLight: {
+    color: colors.primaryLight,
+  },
+  button: {
+    position: 'absolute',
+    bottom: 60,
+    backgroundColor: colors.primary,
+    paddingVertical: 16,
+    paddingHorizontal: 60,
+    borderRadius: 30,
+  },
+  buttonText: {
+    ...fonts.body,
+    color: colors.white,
+    fontWeight: 'bold',
   },
 });
 
