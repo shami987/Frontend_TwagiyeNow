@@ -1,9 +1,18 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { ThemeProvider } from './theme/ThemeContext';
+import './i18n'; // Import i18n configuration
 import '../global.css';
-import LiveBusTrackerScreen from './screens/LiveBusTrackerScreen';
+import MainNavigator from './navigation/MainNavigator';
 
 const App = () => {
-  return <LiveBusTrackerScreen />;
+  return (
+    <ThemeProvider>
+      <NavigationContainer>
+        <MainNavigator />
+      </NavigationContainer>
+    </ThemeProvider>
+  );
 };
 
 export default App;
