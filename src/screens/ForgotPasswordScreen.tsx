@@ -4,7 +4,7 @@ import {colors, fonts} from '../theme';
 
 const ForgotPasswordScreen = ({navigation}: any) => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
@@ -23,14 +23,15 @@ const ForgotPasswordScreen = ({navigation}: any) => {
       {step === 1 && (
         <>
           <Text style={styles.title}>Forgot Password?</Text>
-          <Text style={styles.subtitle}>Enter your phone number and we'll send you a verification code.</Text>
+          <Text style={styles.subtitle}>Enter your email and we'll send you a verification code.</Text>
           <TextInput
             style={styles.input}
-            placeholder="Phone Number"
+            placeholder="Email Address"
             placeholderTextColor={colors.gray}
-            keyboardType="phone-pad"
-            value={phone}
-            onChangeText={setPhone}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            value={email}
+            onChangeText={setEmail}
           />
           <TouchableOpacity style={styles.button} onPress={() => setStep(2)}>
             <Text style={styles.buttonText}>Send Code</Text>
@@ -42,7 +43,7 @@ const ForgotPasswordScreen = ({navigation}: any) => {
       {step === 2 && (
         <>
           <Text style={styles.title}>Enter Code</Text>
-          <Text style={styles.subtitle}>We sent a 6-digit code to {phone}.</Text>
+          <Text style={styles.subtitle}>We sent a 6-digit code to {email}.</Text>
           <TextInput
             style={[styles.input, styles.otpInput]}
             placeholder="------"
