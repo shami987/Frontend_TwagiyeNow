@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors, fonts} from '../theme';
 
 const SignupScreen = ({navigation}: any) => {
@@ -10,116 +11,72 @@ const SignupScreen = ({navigation}: any) => {
   const [confirm, setConfirm] = useState('');
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Create Account</Text>
-      <Text style={styles.subtitle}>Sign up to get started</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Full Name"
-        placeholderTextColor={colors.gray}
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        placeholderTextColor={colors.gray}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        placeholderTextColor={colors.gray}
-        keyboardType="phone-pad"
-        value={phone}
-        onChangeText={setPhone}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        placeholderTextColor={colors.gray}
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Confirm Password"
-        placeholderTextColor={colors.gray}
-        secureTextEntry
-        value={confirm}
-        onChangeText={setConfirm}
-      />
-
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Sign Up</Text>
+    <SafeAreaView className="flex-1 bg-white">
+      <TouchableOpacity className="absolute top-2.5 right-5 p-2.5 z-10" onPress={() => navigation.navigate('Home')}>
+        <Text className="text-base font-bold" style={{ color: colors.primary }}>Skip</Text>
       </TouchableOpacity>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28, paddingVertical: 40 }} showsVerticalScrollIndicator={false}>
+        <Text className="text-3xl font-bold mb-1" style={{ color: colors.primary }}>Create Account</Text>
+        <Text className="text-base mb-8" style={{ color: colors.gray }}>Sign up to get started</Text>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.link}>
-          Already have an account? <Text style={styles.linkBold}>Login</Text>
-        </Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <TextInput
+          className="w-full border-[1.5px] rounded-xl py-3.5 px-4 mb-4 text-base"
+          style={{ borderColor: colors.primary, color: colors.black }}
+          placeholder="Full Name"
+          placeholderTextColor={colors.gray}
+          value={name}
+          onChangeText={setName}
+        />
+        <TextInput
+          className="w-full border-[1.5px] rounded-xl py-3.5 px-4 mb-4 text-base"
+          style={{ borderColor: colors.primary, color: colors.black }}
+          placeholder="Email"
+          placeholderTextColor={colors.gray}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <TextInput
+          className="w-full border-[1.5px] rounded-xl py-3.5 px-4 mb-4 text-base"
+          style={{ borderColor: colors.primary, color: colors.black }}
+          placeholder="Phone Number"
+          placeholderTextColor={colors.gray}
+          keyboardType="phone-pad"
+          value={phone}
+          onChangeText={setPhone}
+        />
+        <TextInput
+          className="w-full border-[1.5px] rounded-xl py-3.5 px-4 mb-4 text-base"
+          style={{ borderColor: colors.primary, color: colors.black }}
+          placeholder="Password"
+          placeholderTextColor={colors.gray}
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+        <TextInput
+          className="w-full border-[1.5px] rounded-xl py-3.5 px-4 mb-4 text-base"
+          style={{ borderColor: colors.primary, color: colors.black }}
+          placeholder="Confirm Password"
+          placeholderTextColor={colors.gray}
+          secureTextEntry
+          value={confirm}
+          onChangeText={setConfirm}
+        />
+
+        <TouchableOpacity className="w-full py-4 rounded-[30px] items-center mt-2 mb-6" style={{ backgroundColor: colors.primary }}>
+          <Text className="text-white text-base font-bold">Sign Up</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text className="text-base" style={{ color: colors.gray }}>
+            Already have an account? <Text className="font-bold" style={{ color: colors.primary }}>Login</Text>
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    backgroundColor: colors.white,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 28,
-    paddingVertical: 40,
-  },
-  title: {
-    ...fonts.h1,
-    color: colors.primary,
-    marginBottom: 4,
-  },
-  subtitle: {
-    ...fonts.body,
-    color: colors.gray,
-    marginBottom: 32,
-  },
-  input: {
-    width: '100%',
-    borderWidth: 1.5,
-    borderColor: colors.primary,
-    borderRadius: 12,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    marginBottom: 16,
-    ...fonts.body,
-    color: colors.black,
-  },
-  button: {
-    width: '100%',
-    backgroundColor: colors.primary,
-    paddingVertical: 16,
-    borderRadius: 30,
-    alignItems: 'center',
-    marginTop: 8,
-    marginBottom: 24,
-  },
-  buttonText: {
-    ...fonts.body,
-    color: colors.white,
-    fontWeight: 'bold',
-  },
-  link: {
-    ...fonts.body,
-    color: colors.gray,
-  },
-  linkBold: {
-    color: colors.primary,
-    fontWeight: 'bold',
-  },
-});
 
 export default SignupScreen;

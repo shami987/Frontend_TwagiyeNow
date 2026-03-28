@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, FlatList, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../theme';
 
-export default function BusSearchResultsScreen({ navigation }) {
+export default function BusSearchResultsScreen({ navigation }: any) {
   const [buses] = useState([
     {
       id: '1',
@@ -42,7 +43,7 @@ export default function BusSearchResultsScreen({ navigation }) {
     },
   ]);
 
-  const BusCard = ({ bus }) => (
+  const BusCard = ({ bus }: any) => (
     <View
       style={{
         marginHorizontal: 16,
@@ -114,83 +115,82 @@ export default function BusSearchResultsScreen({ navigation }) {
   );
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.lightGray }} showsVerticalScrollIndicator={false}>
-      {/* Safe Area Top Spacing */}
-      <View style={{ height: 40 }} />
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.lightGray }}>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+        {/* Header */}
+        <View style={{ backgroundColor: colors.lightGray, paddingHorizontal: 16, paddingTop: 16, paddingBottom: 16 }}>
+          {/* Top Bar with Back and Logo */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, justifyContent: 'space-between' }}>
+            <TouchableOpacity onPress={() => navigation?.goBack()}>
+              <Text style={{ fontSize: 24, color: colors.primary }}>←</Text>
+            </TouchableOpacity>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', color: colors.primary }}>
+              TwagiyeNow
+            </Text>
+            <View style={{ width: 24 }} />
+          </View>
 
-      {/* Header */}
-      <View style={{ backgroundColor: colors.lightGray, paddingHorizontal: 16, paddingTop: 16, paddingBottom: 16 }}>
-        {/* Top Bar with Back and Logo */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, justifyContent: 'space-between' }}>
-          <TouchableOpacity onPress={() => navigation?.goBack()}>
-            <Text style={{ fontSize: 24, color: colors.primary }}>←</Text>
-          </TouchableOpacity>
-          <Text style={{ fontSize: 18, fontWeight: 'bold', color: colors.primary }}>
-            TwagiyeNow
-          </Text>
-          <View style={{ width: 24 }} />
+          {/* Search Filters */}
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 8, marginBottom: 12 }}>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: colors.white,
+                borderRadius: 12,
+                paddingHorizontal: 12,
+                paddingVertical: 12,
+              }}
+            >
+              <Text style={{ fontSize: 11, color: colors.gray, marginBottom: 4 }}>From</Text>
+              <Text style={{ fontSize: 14, fontWeight: '600', color: colors.black }}>Nakhipot</Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: colors.white,
+                borderRadius: 12,
+                paddingHorizontal: 12,
+                paddingVertical: 12,
+              }}
+            >
+              <Text style={{ fontSize: 11, color: colors.gray, marginBottom: 4 }}>To</Text>
+              <Text style={{ fontSize: 14, fontWeight: '600', color: colors.black }}>Manbhawan</Text>
+            </View>
+          </View>
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 8 }}>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: colors.white,
+                borderRadius: 12,
+                paddingHorizontal: 12,
+                paddingVertical: 12,
+              }}
+            >
+              <Text style={{ fontSize: 12, color: colors.gray }}>Sat, 1st Jan, 2022</Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: colors.white,
+                borderRadius: 12,
+                paddingHorizontal: 12,
+                paddingVertical: 12,
+              }}
+            >
+              <Text style={{ fontSize: 12, color: colors.gray }}>2 Seats</Text>
+            </View>
+          </View>
         </View>
 
-        {/* Search Filters */}
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 8, marginBottom: 12 }}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: colors.white,
-              borderRadius: 12,
-              paddingHorizontal: 12,
-              paddingVertical: 12,
-            }}
-          >
-            <Text style={{ fontSize: 11, color: colors.gray, marginBottom: 4 }}>From</Text>
-            <Text style={{ fontSize: 14, fontWeight: '600', color: colors.black }}>Nakhipot</Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: colors.white,
-              borderRadius: 12,
-              paddingHorizontal: 12,
-              paddingVertical: 12,
-            }}
-          >
-            <Text style={{ fontSize: 11, color: colors.gray, marginBottom: 4 }}>To</Text>
-            <Text style={{ fontSize: 14, fontWeight: '600', color: colors.black }}>Manbhawan</Text>
-          </View>
+        {/* Bus List */}
+        <View style={{ paddingVertical: 12 }}>
+          {buses.map((bus) => (
+            <BusCard key={bus.id} bus={bus} />
+          ))}
         </View>
-
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 8 }}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: colors.white,
-              borderRadius: 12,
-              paddingHorizontal: 12,
-              paddingVertical: 12,
-            }}
-          >
-            <Text style={{ fontSize: 12, color: colors.gray }}>Sat, 1st Jan, 2022</Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: colors.white,
-              borderRadius: 12,
-              paddingHorizontal: 12,
-              paddingVertical: 12,
-            }}
-          >
-            <Text style={{ fontSize: 12, color: colors.gray }}>2 Seats</Text>
-          </View>
-        </View>
-      </View>
-
-      {/* Bus List */}
-      <View style={{ paddingVertical: 12 }}>
-        {buses.map((bus) => (
-          <BusCard key={bus.id} bus={bus} />
-        ))}
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }

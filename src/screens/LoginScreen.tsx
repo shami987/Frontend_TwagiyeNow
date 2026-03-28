@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors, fonts} from '../theme';
 
 const LoginScreen = ({navigation}: any) => {
@@ -7,99 +8,52 @@ const LoginScreen = ({navigation}: any) => {
   const [password, setPassword] = useState('');
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome Back</Text>
-      <Text style={styles.subtitle}>Login to your account</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        placeholderTextColor={colors.gray}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        placeholderTextColor={colors.gray}
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
-        <Text style={styles.buttonText}>Login</Text>
+    <SafeAreaView className="flex-1 bg-white">
+      <TouchableOpacity className="absolute top-2.5 right-5 p-2.5 z-10" onPress={() => navigation.navigate('Home')}>
+        <Text className="text-base font-bold" style={{ color: colors.primary }}>Skip</Text>
       </TouchableOpacity>
+      <View className="flex-1 items-center justify-center px-7">
+        <Text className="text-3xl font-bold mb-1" style={{ color: colors.primary }}>Welcome Back</Text>
+        <Text className="text-base mb-8" style={{ color: colors.gray }}>Login to your account</Text>
 
-      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotLink}>
-        <Text style={styles.linkBold}>Forgot Password?</Text>
-      </TouchableOpacity>
+        <TextInput
+          className="w-full border-[1.5px] rounded-xl py-3.5 px-4 mb-4 text-base"
+          style={{ borderColor: colors.primary, color: colors.black }}
+          placeholder="Email"
+          placeholderTextColor={colors.gray}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <TextInput
+          className="w-full border-[1.5px] rounded-xl py-3.5 px-4 mb-4 text-base"
+          style={{ borderColor: colors.primary, color: colors.black }}
+          placeholder="Password"
+          placeholderTextColor={colors.gray}
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
 
-      <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-        <Text style={styles.link}>
-          Don't have an account? <Text style={styles.linkBold}>Sign Up</Text>
-        </Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity className="w-full py-4 rounded-[30px] items-center mt-2 mb-6" style={{ backgroundColor: colors.primary }}>
+          <Text className="text-white text-base font-bold">Login</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+          <Text className="text-base mb-4" style={{ color: colors.gray }}>
+            Forgot password? <Text className="font-bold" style={{ color: colors.primary }}>Reset</Text>
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+          <Text className="text-base" style={{ color: colors.gray }}>
+            Don't have an account? <Text className="font-bold" style={{ color: colors.primary }}>Sign Up</Text>
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 28,
-  },
-  title: {
-    ...fonts.h1,
-    color: colors.primary,
-    marginBottom: 4,
-  },
-  subtitle: {
-    ...fonts.body,
-    color: colors.gray,
-    marginBottom: 32,
-  },
-  input: {
-    width: '100%',
-    borderWidth: 1.5,
-    borderColor: colors.primary,
-    borderRadius: 12,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    marginBottom: 16,
-    ...fonts.body,
-    color: colors.black,
-  },
-  button: {
-    width: '100%',
-    backgroundColor: colors.primary,
-    paddingVertical: 16,
-    borderRadius: 30,
-    alignItems: 'center',
-    marginTop: 8,
-    marginBottom: 24,
-  },
-  buttonText: {
-    ...fonts.body,
-    color: colors.white,
-    fontWeight: 'bold',
-  },
-  link: {
-    ...fonts.body,
-    color: colors.gray,
-  },
-  forgotLink: {
-    marginBottom: 16,
-  },
-  linkBold: {
-    color: colors.primary,
-    fontWeight: 'bold',
-  },
-});
 
 export default LoginScreen;
