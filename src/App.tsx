@@ -6,7 +6,11 @@ import '../global.css';
 import AppNavigator from './navigation/AppNavigator';
 
 const App = () => {
-  return <AppNavigator />;
+  return (
+    <ThemeProvider>
+      <AppNavigator />
+    </ThemeProvider>
+  );
 };
 
 export default App;
