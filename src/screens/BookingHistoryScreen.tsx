@@ -10,6 +10,7 @@ interface BookingItem {
   date: string;
   status: TripStatus;
   price: string;
+  distance: string;
 }
 
 const HISTORY_DATA: BookingItem[] = [
@@ -19,6 +20,7 @@ const HISTORY_DATA: BookingItem[] = [
     date: 'Oct 15, 2023 | 08:30',
     status: 'confirmed',
     price: '3,500 RWF',
+    distance: '95 km',
   },
   {
     id: '2',
@@ -26,6 +28,7 @@ const HISTORY_DATA: BookingItem[] = [
     date: 'Oct 12, 2023 | 16:00',
     status: 'confirmed',
     price: '3,500 RWF',
+    distance: '95 km',
   },
   {
     id: '3',
@@ -33,6 +36,7 @@ const HISTORY_DATA: BookingItem[] = [
     date: 'Oct 05, 2023 | 09:15',
     status: 'delayed',
     price: '5,000 RWF',
+    distance: '154 km',
   },
   {
     id: '4',
@@ -40,6 +44,7 @@ const HISTORY_DATA: BookingItem[] = [
     date: 'Sep 28, 2023 | 14:00',
     status: 'cancelled',
     price: '5,000 RWF',
+    distance: '154 km',
   },
 ];
 
@@ -52,6 +57,7 @@ const BookingHistoryScreen = () => {
       date={item.date}
       status={item.status}
       price={item.price}
+      distance={item.distance}
       onReuse={() => console.log('Reuse ticket', item.id)}
       onPress={() => console.log('Trip details', item.id)}
     />
