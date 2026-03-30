@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, TextInput, Dimensions, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Bell, MapPin, Users, Calendar, Clock, Bot, Sparkles, Car, Map as MapIcon, Navigation, Wallet, ChevronRight, ArrowUpDown, X, Search } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { Modal, Pressable } from 'react-native';
+import { getUser } from '../services/storage';
 
 const { width, height } = Dimensions.get('window');
 
 const HomeScreen = ({ navigation }: any) => {
   const { colors } = useTheme();
+  const [user, setUser] = useState<{name: string} | null>(null);
   const [from, setFrom] = useState('Nyabugogo, Kigali');
   const [to, setTo] = useState('Musanze City');
   const [passengers, setPassengers] = useState('1 Person');
   const [date, setDate] = useState('March 29, 2026');
   const [time, setTime] = useState('07:00 AM');
   const [isBookingModalVisible, setIsBookingModalVisible] = useState(false);
+
+  useEffect(() => {
+    getUser().then(setUser);
+  }, []);
 
   const handleSwapLocations = () => {
     const temp = from;
@@ -94,7 +100,7 @@ const HomeScreen = ({ navigation }: any) => {
         <View className="px-4 mt-5 mb-2 flex-row justify-between items-end">
           <View>
             <Text className="text-xl font-bold mb-0.5" style={{ color: colors.text }}>
-              Hello, Simbi Bezza O.
+              {user ? `Hello, ${user.name.split(' ')[0]} 👋` : 'Hello, Guest 👋'}
             </Text>
             <Text className="text-sm font-medium" style={{ color: colors.textSecondary }}>
               Looking for a bus?
