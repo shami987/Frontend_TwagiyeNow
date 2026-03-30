@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Bell, CheckCircle2 } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
 import NotificationCard, { NotificationType } from '../components/NotificationCard';

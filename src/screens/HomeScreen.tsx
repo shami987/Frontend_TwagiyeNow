@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, TextInput, Dimensions, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, TextInput, Dimensions, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Bell, MapPin, Users, Calendar, Clock, Bot, Sparkles, Car, Map as MapIcon, Navigation, Wallet, ChevronRight, ArrowUpDown, X, Search } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { Modal, Pressable } from 'react-native';
@@ -22,10 +23,10 @@ const HomeScreen = ({ navigation }: any) => {
   };
 
   return (
-    <SafeAreaView className="flex-1" style={{ backgroundColor: colors.background }}>
+    <SafeAreaView className="flex-1 pt-20" style={{ backgroundColor: colors.background }}>
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
         {/* Header */}
-        <View className="px-4 pt-12 pb-6 flex-row justify-between items-center" style={{ backgroundColor: colors.surface }}>
+        <View className="px-4 pb-6 flex-row justify-between items-center" style={{ backgroundColor: colors.surface }}>
           <Text className="text-3xl font-bold" style={{ color: colors.primary }}>
             TwagiyeNow
           </Text>
@@ -57,13 +58,13 @@ const HomeScreen = ({ navigation }: any) => {
           <TouchableOpacity 
             onPress={() => navigation.navigate('PrivateCarBooking')}
             className="flex-1 rounded-3xl p-4 overflow-hidden shadow-sm"
-            style={{ backgroundColor: '#F0F9FF', borderBottomWidth: 3, borderBottomColor: '#0284C7' }}
+            style={{ backgroundColor: colors.primary + '10', borderBottomWidth: 3, borderBottomColor: colors.primary }}
           >
-            <View className="bg-blue-400/10 absolute -right-4 -top-4 w-20 h-20 rounded-full" />
+            <View className="bg-primary/10 absolute -right-4 -top-4 w-20 h-20 rounded-full" style={{ backgroundColor: colors.primary + '10' }} />
             <View className="flex-row items-center mb-1">
-              <Car size={18} color="#0284C7" />
-              <View className="ml-2 bg-blue-100 px-2 py-0.5 rounded-full">
-                <Text className="text-[8px] font-black uppercase tracking-widest text-blue-700">PREMIUM</Text>
+              <Car size={18} color={colors.primary} />
+              <View className="ml-2 bg-primary/20 px-2 py-0.5 rounded-full" style={{ backgroundColor: colors.primary + '20' }}>
+                <Text className="text-[8px] font-black uppercase tracking-widest" style={{ color: colors.primary }}>PREMIUM</Text>
               </View>
             </View>
             <Text className="text-sm font-black" style={{ color: colors.text }}>Private Car</Text>
