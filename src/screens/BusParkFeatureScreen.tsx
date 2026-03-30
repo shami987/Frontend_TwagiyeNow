@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, ScrollView, SafeAreaView, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, ScrollView, ActivityIndicator, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MapPin, Navigation, Clock, CreditCard, ChevronLeft, Map as MapIcon, LocateFixed, Compass } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { WebView } from 'react-native-webview';

@@ -9,7 +9,7 @@ const LoginScreen = ({navigation}: any) => {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <TouchableOpacity className="absolute top-2.5 right-5 p-2.5 z-10" onPress={() => navigation.navigate('Home')}>
+      <TouchableOpacity className="absolute top-16 right-5 p-2.5 z-10" onPress={() => navigation.navigate('Home')}>
         <Text className="text-base font-bold" style={{ color: colors.primary }}>Skip</Text>
       </TouchableOpacity>
       <View className="flex-1 items-center justify-center px-7">
