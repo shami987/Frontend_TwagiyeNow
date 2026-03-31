@@ -52,11 +52,7 @@ const HomeScreen = ({ navigation }: any) => {
   const [from, setFrom] = useState('Kigali');
   const [to, setTo] = useState('Musanze');
   const [passengers, setPassengers] = useState('1');
-  const [date, setDate] = useState(() => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split('T')[0];
-  });
+  const [date, setDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [time, setTime] = useState('06:00');
   const [isBookingModalVisible, setIsBookingModalVisible] = useState(false);
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Home, Ticket, User, Map} from 'lucide-react-native';
+import {Home, Ticket, User} from 'lucide-react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import OpeningScreen from '../screens/OpeningScreen';
 import OnboardingScreen from '../screens/OnboardingScreen';
@@ -40,15 +40,9 @@ const TabNavigator = () => {
       screenOptions={({route}) => ({
         headerShown: false,
         tabBarIcon: ({color, size}) => {
-          if (route.name === 'MainHome') {
-            return <Home color={color} size={size} />;
-          } else if (route.name === 'MyTickets') {
-            return <Ticket color={color} size={size} />;
-          } else if (route.name === 'LiveTrack') {
-            return <Map color={color} size={size} />;
-          } else if (route.name === 'UserProfile') {
-            return <User color={color} size={size} />;
-          }
+          if (route.name === 'MainHome') return <Home color={color} size={size} />;
+          if (route.name === 'MyTickets') return <Ticket color={color} size={size} />;
+          if (route.name === 'UserProfile') return <User color={color} size={size} />;
           return null;
         },
         tabBarActiveTintColor: colors.primary,
@@ -62,7 +56,6 @@ const TabNavigator = () => {
         },
       })}>
       <Tab.Screen name="MainHome" component={HomeScreen} options={{tabBarLabel: 'Home'}} />
-      <Tab.Screen name="LiveTrack" component={LiveBusTrackerScreen} options={{tabBarLabel: 'Tracker'}} />
       <Tab.Screen name="MyTickets" component={TicketsScreen} options={{tabBarLabel: 'Tickets'}} />
       <Tab.Screen name="UserProfile" component={ProfileScreen} options={{tabBarLabel: 'Profile'}} />
     </Tab.Navigator>
