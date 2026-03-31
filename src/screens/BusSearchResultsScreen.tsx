@@ -47,8 +47,8 @@ const WebTimeInput = ({ value, onChange, selectedDate }: any) => {
 
 export default function BusSearchResultsScreen({ navigation, route }: any) {
   const { colors } = useTheme();
-  const [from, setFrom] = useState(route.params?.from || 'Kigali');
-  const [to, setTo] = useState(route.params?.to || 'Musanze');
+  const [from, setFrom] = useState(route.params?.from || '');
+  const [to, setTo] = useState(route.params?.to || '');
   const [date, setDate] = useState(() => {
     if (route.params?.date) return route.params.date;
     return new Date().toISOString().split('T')[0];
@@ -63,7 +63,12 @@ export default function BusSearchResultsScreen({ navigation, route }: any) {
     setLoading(true);
     setError('');
     try {
-      const res = await scheduleApi.search(from, to, date);
+      let res;
+      if (!from && !to) {
+        res = await scheduleApi.getAll(date || undefined);
+      } else {
+        res = await scheduleApi.search(from, to, date);
+      }
       setSchedules(res.data);
       if (res.data.length === 0) setError('No buses found for this route and date.');
     } catch (err: any) {
