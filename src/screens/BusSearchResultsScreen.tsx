@@ -51,9 +51,7 @@ export default function BusSearchResultsScreen({ navigation, route }: any) {
   const [to, setTo] = useState(route.params?.to || 'Musanze');
   const [date, setDate] = useState(() => {
     if (route.params?.date) return route.params.date;
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split('T')[0];
+    return new Date().toISOString().split('T')[0];
   });
   const [time, setTime] = useState('06:00');
   const [isEditing, setIsEditing] = useState(false);
@@ -128,6 +126,11 @@ export default function BusSearchResultsScreen({ navigation, route }: any) {
 
         <View className="items-center">
           <Text className="text-sm font-bold" style={{ color: colors.text }}>{schedule.to_city}</Text>
+          {schedule.expected_arrival && (
+            <Text className="text-[10px] text-gray-400 font-medium mt-0.5">
+              ETA {new Date(schedule.expected_arrival).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </Text>
+          )}
         </View>
       </View>
 

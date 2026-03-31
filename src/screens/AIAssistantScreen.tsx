@@ -73,7 +73,7 @@ const AIAssistantScreen = ({ navigation }: any) => {
     try {
       const history: ChatHistory = messages.map(m => ({
         role: m.role,
-        parts: [{ text: m.text }],
+        text: m.text,
       }));
 
       const responseText = await sendMessageToGemini(currentInput, history);

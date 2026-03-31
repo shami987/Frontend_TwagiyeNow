@@ -32,7 +32,11 @@ export const bookingApi = {
   },
   cancel: async (bookingId: string) => {
     const config = await authHeader();
-    return api.put(`/bookings/${bookingId}/cancel`, {}, config);
+    return api.delete(`/bookings/${bookingId}`, config);
+  },
+  delete: async (bookingId: string) => {
+    const config = await authHeader();
+    return api.delete(`/bookings/${bookingId}`, config);
   },
 };
 
