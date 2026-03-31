@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Dimensions, Modal, Pressable, Image, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Dimensions, Modal, Pressable, Image, ActivityIndicator, Alert, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { History, Calendar, Clock, Ticket as TicketIcon, ChevronRight, X, Wallet, Car, MapPin, Trash2 } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
@@ -39,16 +39,27 @@ const TicketsScreen = ({ navigation }: any) => {
   };
 
   const handleDelete = async (id: string, type: 'bus' | 'car') => {
-    try {
-      if (type === 'car') {
-        await privateCarApi.cancel(id);
-        setCarBookings(prev => prev.filter(b => b.id !== id));
-      } else {
-        await bookingApi.delete(id);
-        setTickets(prev => prev.filter(t => t.id !== id));
+    const doDelete = async () => {
+      try {
+        if (type === 'car') {
+          await privateCarApi.cancel(id);
+          setCarBookings(prev => prev.filter(b => b.id !== id));
+        } else {
+          await bookingApi.delete(id);
+          setTickets(prev => prev.filter(t => t.id !== id));
+        }
+      } catch (err: any) {
+        console.error(err?.response?.data?.message || err);
       }
-    } catch (err) {
-      console.error(err);
+    };
+
+    if (Platform.OS === 'web') {
+      if (window.confirm('Delete this ticket?')) doDelete();
+    } else {
+      Alert.alert('Delete Ticket', 'Are you sure?', [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Delete', style: 'destructive', onPress: doDelete },
+      ]);
     }
   };
 
@@ -58,7 +69,6 @@ const TicketsScreen = ({ navigation }: any) => {
     return { bg: '#FFF8E1', text: '#E67E22' };
   };
 
-  // QR code as image from free API
   const getQrUrl = (data: string) =>
     `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data)}`;
 
@@ -71,18 +81,11 @@ const TicketsScreen = ({ navigation }: any) => {
             <History size={24} color={colors.primary} />
           </TouchableOpacity>
         </View>
-        {/* Tabs */}
         <View className="flex-row gap-2">
-          <TouchableOpacity
-            onPress={() => setTab('bus')}
-            className="flex-1 py-2 rounded-full items-center"
-            style={{ backgroundColor: tab === 'bus' ? colors.primary : colors.background }}>
+          <TouchableOpacity onPress={() => setTab('bus')} className="flex-1 py-2 rounded-full items-center" style={{ backgroundColor: tab === 'bus' ? colors.primary : colors.background }}>
             <Text className="text-xs font-bold" style={{ color: tab === 'bus' ? '#fff' : colors.gray }}>🚌 Bus Tickets</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setTab('car')}
-            className="flex-1 py-2 rounded-full items-center"
-            style={{ backgroundColor: tab === 'car' ? colors.primary : colors.background }}>
+          <TouchableOpacity onPress={() => setTab('car')} className="flex-1 py-2 rounded-full items-center" style={{ backgroundColor: tab === 'car' ? colors.primary : colors.background }}>
             <Text className="text-xs font-bold" style={{ color: tab === 'car' ? '#fff' : colors.gray }}>🚗 Car Bookings</Text>
           </TouchableOpacity>
         </View>
@@ -92,7 +95,6 @@ const TicketsScreen = ({ navigation }: any) => {
         {loading ? (
           <ActivityIndicator size="large" color={colors.primary} className="mt-20" />
         ) : tab === 'bus' ? (
-          // BUS TICKETS
           tickets.length === 0 ? (
             <View className="flex-1 justify-center items-center py-20">
               <TicketIcon size={40} color={colors.border} />
@@ -170,20 +172,15 @@ const TicketsScreen = ({ navigation }: any) => {
                       <Text className="text-[8px] font-bold mt-1" style={{ color: colors.textSecondary }}>SCAN</Text>
                     </View>
                   </View>
-                  {/* Delete button */}
-                  <TouchableOpacity
-                    onPress={() => handleDelete(ticket.id, 'bus')}
-                    className="mx-5 mb-4 py-2 rounded-xl items-center flex-row justify-center gap-2"
-                    style={{ backgroundColor: '#FDECEA' }}>
+                  <TouchableOpacity onPress={() => handleDelete(ticket.id, 'bus')} className="mx-5 mb-4 py-2 rounded-xl items-center flex-row justify-center" style={{ backgroundColor: '#FDECEA' }}>
                     <Trash2 size={14} color="#C0392B" />
-                    <Text className="text-xs font-bold" style={{ color: '#C0392B' }}>Delete Ticket</Text>
+                    <Text className="text-xs font-bold ml-1" style={{ color: '#C0392B' }}>Delete Ticket</Text>
                   </TouchableOpacity>
                 </TouchableOpacity>
               );
             })
           )
         ) : (
-          // CAR BOOKINGS
           carBookings.length === 0 ? (
             <View className="flex-1 justify-center items-center py-20">
               <Car size={40} color={colors.border} />
@@ -257,13 +254,9 @@ const TicketsScreen = ({ navigation }: any) => {
                       <Text className="text-[8px] font-bold mt-1" style={{ color: colors.textSecondary }}>SCAN</Text>
                     </View>
                   </View>
-                  {/* Delete button */}
-                  <TouchableOpacity
-                    onPress={() => handleDelete(booking.id, 'car')}
-                    className="mx-5 mb-4 py-2 rounded-xl items-center flex-row justify-center gap-2"
-                    style={{ backgroundColor: '#FDECEA' }}>
+                  <TouchableOpacity onPress={() => handleDelete(booking.id, 'car')} className="mx-5 mb-4 py-2 rounded-xl items-center flex-row justify-center" style={{ backgroundColor: '#FDECEA' }}>
                     <Trash2 size={14} color="#C0392B" />
-                    <Text className="text-xs font-bold" style={{ color: '#C0392B' }}>Delete Booking</Text>
+                    <Text className="text-xs font-bold ml-1" style={{ color: '#C0392B' }}>Delete Booking</Text>
                   </TouchableOpacity>
                 </TouchableOpacity>
               );
@@ -273,30 +266,21 @@ const TicketsScreen = ({ navigation }: any) => {
         <View className="h-10" />
       </ScrollView>
 
-      {/* QR Modal */}
       <Modal animationType="fade" transparent visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
         <Pressable className="flex-1 justify-center items-center bg-black/60 px-6" onPress={() => setModalVisible(false)}>
           <View className="w-full rounded-[40px] p-8 items-center shadow-2xl" style={{ backgroundColor: colors.surface }}>
             <TouchableOpacity onPress={() => setModalVisible(false)} className="absolute top-6 right-6 p-2 rounded-full" style={{ backgroundColor: colors.background }}>
               <X size={24} color={colors.text} />
             </TouchableOpacity>
-
             <Text className="text-2xl font-bold mb-2" style={{ color: colors.text }}>Boarding Pass</Text>
-            <Text className="text-sm font-medium mb-6 text-center" style={{ color: colors.textSecondary }}>
-              Show this QR code to the driver or terminal attendant.
-            </Text>
-
+            <Text className="text-sm font-medium mb-6 text-center" style={{ color: colors.textSecondary }}>Show this QR code to the driver or terminal attendant.</Text>
             {selectedTicket?.qr_code ? (
-              <Image
-                source={{ uri: getQrUrl(selectedTicket.qr_code) }}
-                style={{ width: width * 0.55, height: width * 0.55, borderRadius: 16 }}
-              />
+              <Image source={{ uri: getQrUrl(selectedTicket.qr_code) }} style={{ width: width * 0.55, height: width * 0.55, borderRadius: 16 }} />
             ) : (
               <View className="p-8 rounded-[30px] items-center justify-center mb-4" style={{ backgroundColor: colors.primaryLight }}>
-                <Text className="text-sm font-medium" style={{ color: colors.primary }}>QR code not yet generated.{'\n'}Complete payment to get your QR.</Text>
+                <Text className="text-sm font-medium text-center" style={{ color: colors.primary }}>QR code not yet generated.{'\n'}Complete payment to get your QR.</Text>
               </View>
             )}
-
             {selectedTicket && (
               <View className="w-full items-center mt-6 mb-4">
                 <Text className="text-xl font-bold" style={{ color: colors.primary }}>
@@ -314,12 +298,10 @@ const TicketsScreen = ({ navigation }: any) => {
                 <Text className="text-sm font-medium mt-1" style={{ color: colors.textSecondary }}>
                   {selectedTicket.type === 'car'
                     ? `${selectedTicket.driver_name} • ${selectedTicket.distance_km} km`
-                    : `Seat ${selectedTicket.seat_number} • ${new Date(selectedTicket.departure_time).toLocaleString()}`
-                  }
+                    : `Seat ${selectedTicket.seat_number} • ${new Date(selectedTicket.departure_time).toLocaleString()}`}
                 </Text>
               </View>
             )}
-
             <View className="w-full py-4 rounded-2xl items-center" style={{ backgroundColor: colors.primary }}>
               <Text className="text-white text-lg font-bold">READY TO SCAN</Text>
             </View>

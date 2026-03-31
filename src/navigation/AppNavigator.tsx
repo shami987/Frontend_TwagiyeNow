@@ -40,24 +40,39 @@ const TabNavigator = () => {
       screenOptions={({route}) => ({
         headerShown: false,
         tabBarIcon: ({color, size}) => {
-          if (route.name === 'MainHome') return <Home color={color} size={size} />;
-          if (route.name === 'MyTickets') return <Ticket color={color} size={size} />;
-          if (route.name === 'UserProfile') return <User color={color} size={size} />;
+          if (route.name === 'MainHome') return <Home color={color} size={24} />;
+          if (route.name === 'MyTickets') return <Ticket color={color} size={24} />;
+          if (route.name === 'UserProfile') return <User color={color} size={24} />;
           return null;
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.gray,
+        tabBarShowLabel: true,
         tabBarStyle: {
           backgroundColor: colors.surface,
           borderTopColor: colors.border,
-          height: 60 + (insets.bottom > 0 ? insets.bottom - 10 : 0),
-          paddingBottom: insets.bottom > 0 ? insets.bottom : 8,
-          paddingTop: 8,
+          borderTopWidth: 1,
+          height: 65 + (insets.bottom > 0 ? insets.bottom - 10 : 0),
+          paddingBottom: insets.bottom > 0 ? insets.bottom : 10,
+          paddingTop: 10,
+          elevation: 10,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: -3 },
+          shadowOpacity: 0.1,
+          shadowRadius: 6,
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: '700',
+          marginTop: 2,
+        },
+        tabBarIconStyle: {
+          marginTop: 2,
         },
       })}>
-      <Tab.Screen name="MainHome" component={HomeScreen} options={{tabBarLabel: 'Home'}} />
-      <Tab.Screen name="MyTickets" component={TicketsScreen} options={{tabBarLabel: 'Tickets'}} />
-      <Tab.Screen name="UserProfile" component={ProfileScreen} options={{tabBarLabel: 'Profile'}} />
+      <Tab.Screen name="MainHome" component={HomeScreen} options={{ tabBarLabel: 'Home' }} />
+      <Tab.Screen name="MyTickets" component={TicketsScreen} options={{ tabBarLabel: 'Tickets' }} />
+      <Tab.Screen name="UserProfile" component={ProfileScreen} options={{ tabBarLabel: 'Profile' }} />
     </Tab.Navigator>
   );
 };

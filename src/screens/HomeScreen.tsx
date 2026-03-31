@@ -129,7 +129,7 @@ const HomeScreen = ({ navigation }: any) => {
             </Text>
             <Text className="text-sm font-medium" style={{ color: colors.textSecondary }}>Looking for a bus?</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Tickets')}>
+          <TouchableOpacity onPress={() => navigation.navigate('BusSearchResults', { from: '', to: '', date: '' })}>
             <Text className="text-xs font-bold" style={{ color: colors.primary }}>View All</Text>
           </TouchableOpacity>
         </View>
