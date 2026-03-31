@@ -9,6 +9,8 @@ const authHeader = async () => {
 export const scheduleApi = {
   search: (from: string, to: string, date: string) =>
     api.get(`/schedules?from=${from}&to=${to}&date=${date}`),
+  getAll: (date: string) =>
+    api.get(`/schedules/all?date=${date}`),
   getSeats: (scheduleId: string) =>
     api.get(`/schedules/${scheduleId}/seats`),
 };

@@ -49,8 +49,8 @@ const WebTimeInput = ({ value, onChange, style, selectedDate }: any) => {
 const HomeScreen = ({ navigation }: any) => {
   const { colors } = useTheme();
   const [user, setUser] = useState<{name: string} | null>(null);
-  const [from, setFrom] = useState('Kigali');
-  const [to, setTo] = useState('Musanze');
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
   const [passengers, setPassengers] = useState('1');
   const [date, setDate] = useState(() => {
     const tomorrow = new Date();
@@ -133,39 +133,11 @@ const HomeScreen = ({ navigation }: any) => {
             </Text>
             <Text className="text-sm font-medium" style={{ color: colors.textSecondary }}>Looking for a bus?</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Tickets')}>
+          <TouchableOpacity onPress={() => navigation.navigate('BusSearchResults', { from: '', to: '', date: new Date().toISOString().split('T')[0] })}>
             <Text className="text-xs font-bold" style={{ color: colors.primary }}>View All</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Recent Ticket */}
-        <TouchableOpacity onPress={() => navigation.navigate('Tickets')} className="mx-4 mb-6 rounded-2xl p-4 flex-row items-center border border-dashed" style={{ backgroundColor: colors.surface, borderColor: colors.primary + '40' }}>
-          <View className="w-10 h-10 rounded-full items-center justify-center mr-3" style={{ backgroundColor: colors.primaryLight }}>
-            <Navigation size={20} color={colors.primary} />
-          </View>
-          <View className="flex-1">
-            <View className="flex-row items-center justify-between mb-1">
-              <Text className="text-xs font-bold" style={{ color: colors.text }}>Kigali → Musanze</Text>
-              <View className="flex-row items-center">
-                <Text className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full mr-2">ACTIVE</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('LiveTrack')} className="px-2 py-0.5 rounded-full" style={{ backgroundColor: colors.secondary }}>
-                  <Text className="text-[8px] font-black text-white uppercase tracking-tighter">TRACK</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View className="flex-row items-center">
-              <View className="flex-row items-center mr-3">
-                <Navigation size={10} color={colors.textSecondary} />
-                <Text className="text-[10px] ml-1 font-medium" style={{ color: colors.textSecondary }}>95 km</Text>
-              </View>
-              <View className="flex-row items-center">
-                <Wallet size={10} color={colors.textSecondary} />
-                <Text className="text-[10px] ml-1 font-medium" style={{ color: colors.textSecondary }}>3,000 RWF</Text>
-              </View>
-            </View>
-          </View>
-          <ChevronRight size={18} color={colors.border} />
-        </TouchableOpacity>
 
         {/* Search Card */}
         <View className="mx-4 mb-4 rounded-3xl p-5 shadow-lg" style={{ backgroundColor: colors.surface, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 12, elevation: 8 }}>

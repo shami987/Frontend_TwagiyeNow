@@ -65,7 +65,12 @@ export default function BusSearchResultsScreen({ navigation, route }: any) {
     setLoading(true);
     setError('');
     try {
-      const res = await scheduleApi.search(from, to, date);
+      let res;
+      if (!from && !to) {
+        res = await scheduleApi.getAll(date);
+      } else {
+        res = await scheduleApi.search(from, to, date);
+      }
       setSchedules(res.data);
       if (res.data.length === 0) setError('No buses found for this route and date.');
     } catch (err: any) {

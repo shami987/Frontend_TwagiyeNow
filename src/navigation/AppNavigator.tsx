@@ -44,8 +44,6 @@ const TabNavigator = () => {
             return <Home color={color} size={size} />;
           } else if (route.name === 'MyTickets') {
             return <Ticket color={color} size={size} />;
-          } else if (route.name === 'LiveTrack') {
-            return <Map color={color} size={size} />;
           } else if (route.name === 'UserProfile') {
             return <User color={color} size={size} />;
           }
@@ -62,7 +60,6 @@ const TabNavigator = () => {
         },
       })}>
       <Tab.Screen name="MainHome" component={HomeScreen} options={{tabBarLabel: 'Home'}} />
-      <Tab.Screen name="LiveTrack" component={LiveBusTrackerScreen} options={{tabBarLabel: 'Tracker'}} />
       <Tab.Screen name="MyTickets" component={TicketsScreen} options={{tabBarLabel: 'Tickets'}} />
       <Tab.Screen name="UserProfile" component={ProfileScreen} options={{tabBarLabel: 'Profile'}} />
     </Tab.Navigator>
