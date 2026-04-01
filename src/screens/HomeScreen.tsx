@@ -107,20 +107,6 @@ const HomeScreen = ({ navigation }: any) => {
           </TouchableOpacity>
         </View>
 
-        {/* Bus Park Prompt */}
-        <TouchableOpacity onPress={() => navigation.navigate('BusParkFeature')} className="mx-4 mt-6 rounded-2xl p-4 flex-row items-center shadow-sm" style={{ backgroundColor: colors.primary, elevation: 3 }}>
-          <View className="bg-white/20 p-3 rounded-xl mr-4">
-            <MapIcon size={24} color="white" />
-          </View>
-          <View className="flex-1">
-            <Text className="text-white font-bold text-lg">Are you in bus park?</Text>
-            <Text className="text-white/80 text-xs">Find your bus instantly based on your location</Text>
-          </View>
-          <View className="bg-white/20 px-3 py-1 rounded-full">
-            <Text className="text-white font-bold text-[10px]">TAP HERE</Text>
-          </View>
-        </TouchableOpacity>
-
         {/* Greeting */}
         <View className="px-4 mt-5 mb-2 flex-row justify-between items-end">
           <View>

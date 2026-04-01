@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { User, Bell, Globe, CreditCard, Shield, LogOut, Moon, HelpCircle } from 'lucide-react-native';
@@ -6,13 +6,40 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../theme/ThemeContext';
 import ProfileAvatar from '../components/ProfileAvatar';
 import SettingsRow from '../components/SettingsRow';
+import { getUser } from '../services/storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ProfileScreen = ({ navigation }: any) => {
   const { t, i18n } = useTranslation();
   const { theme, colors, toggleTheme } = useTheme();
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [userData, setUserData] = useState({
+    name: 'Jean Doe',
+    email: 'jean.doe@example.com'
+  });
 
   const isDarkMode = theme === 'dark';
+
+  // Load user data when screen comes into focus
+  useFocusEffect(
+    useCallback(() => {
+      loadUserData();
+    }, [])
+  );
+
+  const loadUserData = async () => {
+    try {
+      const user = await getUser();
+      if (user) {
+        setUserData({
+          name: user.name || 'Jean Doe',
+          email: user.email || 'jean.doe@example.com'
+        });
+      }
+    } catch (error) {
+      console.error('Error loading user data:', error);
+    }
+  };
 
   const handleLogout = () => {
     Alert.alert(
@@ -38,9 +65,9 @@ const ProfileScreen = ({ navigation }: any) => {
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={[styles.header, { backgroundColor: colors.surface, borderBottomColor: colors.border }]}>
-          <ProfileAvatar name="Jean Doe" imageUrl="https://i.pravatar.cc/150?u=jean" size={100} />
-          <Text style={[styles.userName, { color: colors.text }]}>Jean Doe</Text>
-          <Text style={[styles.userEmail, { color: colors.textSecondary }]}>jean.doe@example.com</Text>
+          <ProfileAvatar name={userData.name} size={100} />
+          <Text style={[styles.userName, { color: colors.text }]}>{userData.name}</Text>
+          <Text style={[styles.userEmail, { color: colors.textSecondary }]}>{userData.email}</Text>
           <TouchableOpacity 
             style={[styles.editButton, { borderColor: colors.primary }]} 
             onPress={() => navigation.navigate('EditProfile')}
