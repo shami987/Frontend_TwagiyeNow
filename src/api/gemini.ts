@@ -7,9 +7,9 @@ export async function sendMessageToGemini(message: string, history: ChatHistory 
   return response.data.reply ?? '';
 }
 
-export async function sendVoiceToGemini(audioBase64: string, history: ChatHistory = []): Promise<string> {
+export async function sendVoiceToGemini(audioBase64: string, history: ChatHistory = []): Promise<{ reply: string; transcript: string }> {
   const response = await api.post('/ai/voice', { audioBase64, history });
-  return response.data.reply ?? '';
+  return { reply: response.data.reply ?? '', transcript: response.data.transcript ?? '' };
 }
 
 export async function searchTripsForAI(from: string, to: string, date?: string): Promise<any[]> {
