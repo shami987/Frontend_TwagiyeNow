@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Check } from 'lucide-react-native';
+import { Check, ArrowLeft } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
 
 const LANGUAGES = [
@@ -15,7 +15,7 @@ const LANGUAGES = [
   { code: 'sw', name: 'Swahili', nativeName: 'Kiswahili' },
 ];
 
-const LanguageScreen = () => {
+const LanguageScreen = ({ navigation }: any) => {
   const { i18n } = useTranslation();
   const { colors } = useTheme();
 
@@ -45,6 +45,12 @@ const LanguageScreen = () => {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.header, { backgroundColor: colors.surface, borderBottomColor: colors.border }]}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <ArrowLeft size={22} color={colors.text} />
+        </TouchableOpacity>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>Language</Text>
+      </View>
       <FlatList
         data={LANGUAGES}
         renderItem={renderItem}
@@ -59,6 +65,21 @@ const LanguageScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+  },
+  backButton: {
+    marginRight: 12,
+    padding: 4,
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: '700',
   },
   listContent: {
     paddingVertical: 16,
